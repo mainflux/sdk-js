@@ -1,0 +1,42 @@
+{
+  "name": "mainflux-sdk",
+  "version": "0.14.33",
+  "description": "Official Mainflux Javascript sdk",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "index.js",
+    "mainflux",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mainflux/sdk-js.git"
+  },
+  "keywords": [
+    "Mainflux",
+    "mainflux",
+    "Main-Flux"
+  ],
+  "author": "Nataly Musilah",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mainflux/sdk-js/issues"
+  },
+  "homepage": "https://github.com/mainflux/sdk-js#readme",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "mainflux-sdk": "^0.14.33",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jsdoc": "^4.0.2"
+  }
+}
