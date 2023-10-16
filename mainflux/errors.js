@@ -27,6 +27,7 @@ class Errors {
         create: {
             409: "Entity already exists.",
             401: "Missing or invalid access token provided.",
+            400: "Failed due to malformed JSON.",
         },
         login: {
             404: "A non-existent entity request.",

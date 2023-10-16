@@ -1,4 +1,5 @@
 const axios = require('axios');
+const Errors = require("./errors");
 
 class Users {
     // Users API client
@@ -27,6 +28,8 @@ class Users {
             throw new Error('Invalid token parameter. Expected a string.');
         }
     }
+
+    userError = new Errors;
 
     Create(user, token) {
         // Creates a new user
@@ -62,8 +65,13 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.create,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Login(user) {
@@ -97,7 +105,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.login,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -121,7 +134,7 @@ class Users {
         if (typeof refresh_token !== 'string') {
             throw new Error('Invalid token parameter. Expected a string.');
         };
-        
+
         const options = {
             method: "post",
             maxBodyLength: 2000,
@@ -137,7 +150,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.refreshtoken,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -173,7 +191,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.update,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -212,7 +235,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.updateuseridentity,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -258,34 +286,39 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.updateusertags,
+                        error.response.status
+                    );
+                };
             });
     }
 
     UpdateUserOwner(user, token) {
         // Update a user's owner.
-         /**
-         *  Updates owner of the user with provided ID. The owner is updated using 
-         * authorization user_tokeN.
-         * @method UpdateUserOwner - Update a user's owner.
-         * @param {Object} user - User object.
-         * @param{String} token - Access token.
-         * @returns {Object} - User object.
-         * @example
-         * const user = {
-         *  "name": "example",
-         *      "id": "886b4266-77d1-4258-abae-2931fb4f16de"
-         *      "tags": [
-         *          "back",
-         *           "end"
-         *       ]
-         *       "metadata": {
-         *          "foo": "bar"
-         *       }
-         *  "owner":"886b4266-77d1-4258-abae-2931fb4f16de"
-         *  }
-         * 
-         */
+        /**
+        *  Updates owner of the user with provided ID. The owner is updated using 
+        * authorization user_tokeN.
+        * @method UpdateUserOwner - Update a user's owner.
+        * @param {Object} user - User object.
+        * @param{String} token - Access token.
+        * @returns {Object} - User object.
+        * @example
+        * const user = {
+        *  "name": "example",
+        *      "id": "886b4266-77d1-4258-abae-2931fb4f16de"
+        *      "tags": [
+        *          "back",
+        *           "end"
+        *       ]
+        *       "metadata": {
+        *          "foo": "bar"
+        *       }
+        *  "owner":"886b4266-77d1-4258-abae-2931fb4f16de"
+        *  }
+        * 
+        */
 
         this.ValidateUserAndToken(user, token);
 
@@ -304,7 +337,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.updateuserowner,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -341,7 +379,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.updateuserpassword,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -379,7 +422,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.get,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -421,19 +469,13 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.getall,
+                        error.response.status
+                    );
+                };
             });
-        // return fetch(url , options)
-        //     .then((response) => {
-        //         if (!response.ok) {
-        //             return this.userError.HandleError(this.userError.errors, response.status);
-        //             // throw new Error(`HTTP error! Status: ${response.status}`);
-        //         }
-        //         return response.json();
-        //     })
-        //     .catch((error) => {
-        //         console.error('Fetch error:', error);
-        //     });
     }
 
     Disable(user, token) {
@@ -468,7 +510,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.disable,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -505,7 +552,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.enable,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -545,7 +597,12 @@ class Users {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response) {
+                    return this.userError.HandleError(
+                        this.userError.users.memberships,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -563,10 +620,10 @@ class Users {
          */
 
         if (
-            typeof user_id !== 'string' || 
-            typeof group_id !== 'string' || 
-            typeof action !== 'string' || 
-            typeof entity_type !== 'string' || 
+            typeof user_id !== 'string' ||
+            typeof group_id !== 'string' ||
+            typeof action !== 'string' ||
+            typeof entity_type !== 'string' ||
             typeof token !== 'string') {
             throw new Error('Invalid parameter types. Expected strings for user_id, group_id, action, entity_type, and token.');
         };
