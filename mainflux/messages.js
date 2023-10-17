@@ -1,4 +1,5 @@
 const axios = require('axios');
+const Errors = require('./errors');
 
 class Messages{
     //Messages API Client
@@ -13,6 +14,8 @@ class Messages{
         this.httpadapter_url = httpadapter_url;
         this.content_type = 'application/json';
     }
+
+    messageError = new Errors;
 
     Send(channel_id, msg, thing_key){
         //Send a message
@@ -63,8 +66,13 @@ class Messages{
                 return "Message Sent!";
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.messageError.HandleError(
+                        this.messageError.messages.send,
+                        error.response.status,
+                    );
+                };
+            });
     }
 
     Read(channel_id, token){
@@ -84,7 +92,7 @@ class Messages{
         if (typeof token !== "string" || token === null) {
             throw new Error('Invalid token parameter. Expected a string.');
         }
-        
+
         const chan_name_parts = channel_id.split(".", 2);
         const chan_id = chan_name_parts[0];
         let subtopic = "";
@@ -108,8 +116,13 @@ class Messages{
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.messageError.HandleError(
+                        this.messageError.messages.read,
+                        error.response.status,
+                    );
+                };
+            });
     }
 }
 

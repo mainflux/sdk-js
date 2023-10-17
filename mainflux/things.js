@@ -1,4 +1,5 @@
 const axios = require("axios");
+const Errors = require("./errors");
 
 class Things {
   // Things service client.
@@ -31,6 +32,8 @@ class Things {
         throw new Error('Invalid parameter. Expected a string for the "token" parameter.');
     }
   }
+
+  thingError = new Errors;
 
   Create(thing, token) {
     //Creates a new thing.
@@ -76,8 +79,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.create,
+            error.response.status
+          );
+        };
+      });
   }
 
   CreateBulk(things, token) {
@@ -120,8 +128,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.createbulk,
+            error.response.status
+          );
+        };
+      });
   }
 
   Get(thing_id, token) {
@@ -153,8 +166,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.get,
+            error.response.status
+          );
+        };
+      });
   }
 
   GetByChannel(thing_id, query_params, token) {
@@ -187,8 +205,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.getbychannel,
+            error.response.status
+          );
+        };
+      });
   }
 
   GetAll(query_params, token) {
@@ -221,8 +244,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.getall,
+            error.response.status
+          );
+        };
+      });
   }
 
   Disable(thing_id, token) {
@@ -250,8 +278,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.disable,
+            error.response.status
+          );
+        };
+      });
   }
 
   Update(thing_id, thing, token) {
@@ -295,8 +328,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.update,
+            error.response.status
+          );
+        };
+      });
   }
 
   UpdateThingSecret(thing_id, thing, token) {
@@ -340,8 +378,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.updatethingsecret,
+            error.response.status
+          );
+        };
+      });
   }
 
   UpdateThingTags(thing_id, thing, token) {
@@ -386,8 +429,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.updatethingtags,
+            error.response.status
+          );
+        };
+      });
   }
 
   UpdateThingOwner(thing_id, thing, token) {
@@ -431,8 +479,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.updatethingowner,
+            error.response.status
+          );
+        };
+      });
   }
 
   Connect(thing_id, channel_id, action, token) {
@@ -473,8 +526,13 @@ class Things {
         return "Policy created.";
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.connect,
+            error.response.status
+          );
+        };
+      });
   }
 
   Connects(thing_ids, channel_ids, actions, token) {
@@ -512,8 +570,13 @@ class Things {
         return "Policy created.";
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.connects,
+            error.response.status
+          );
+        };
+      });
   }
 
   Disconnect(thing_id, channel_id, token) {
@@ -527,11 +590,15 @@ class Things {
      * 
      */
 
-    if (typeof channel_id !== 'string' || channel_id === null) {
-      throw new Error('Invalid channel_id parameter. Expected a string.');
+    if (!Array.isArray(channel_id)) {
+      throw new Error('Invalid parameter. Expected an array for channel_id.');
     };
 
-    this.ValidateThingIdThingAndToken(thing_id, {}, token);
+    if (!Array.isArray(thing_id)) {
+      throw new Error('Invalid parameter. Expected an array for thing_id.');
+    };
+
+    this.ValidateThingIdThingAndToken('', {}, token);
     
     const payload = { "subjects": thing_id, "objects": channel_id }
     const options = {
@@ -549,8 +616,13 @@ class Things {
         return "Policy deleted.";
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.disconnect,
+            error.response.status
+          );
+        };
+      });
   }
 
   IdentifyThing(thing_key) {
@@ -581,8 +653,13 @@ class Things {
         return response.data;
       })
       .catch((error) => {
-        return error.response.data;
-      })
+        if (error.response) {
+          return this.thingError.HandleError(
+            this.thingError.things.identifything,
+            error.response.status
+          );
+        };
+      });
   }
 
   AuthoriseThing(thing_id, channel_id, action, entity_type, token) {
@@ -593,7 +670,7 @@ class Things {
      * @param {string} thing_id - Thing ID.
      * @param {string} channel_id - Channel ID.
      * @param {string} action - Action for example: ["m_read", "m_write"].
-     * @param {string} entity_type - Type of the thing class for example: "client"
+     * @param {string} entity_type - Type of the thing class for example: "group".
      * @param {string} token - User token.
      * @return {Object} - True if thing is authorised, false if not.
      */

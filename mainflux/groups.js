@@ -1,5 +1,5 @@
-// import Errors from "./errors.js";
 const axios = require("axios");
+const Errors = require("./errors");
 
 class Groups {
     //Groups API client.
@@ -27,6 +27,8 @@ class Groups {
             throw new Error('Invalid token parameter. Expected a string.');
         }
     }
+
+    groupError = new Errors;
 
     Create(group, token) {
         // Create a new group.
@@ -66,7 +68,12 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.create,
+                        error.response.status
+                    );
+                };
             });
     }
 
@@ -102,8 +109,13 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.get,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     GetAll(query_params, token) {
@@ -141,8 +153,13 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.getall,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Update(group_id, group, token) {
@@ -182,8 +199,13 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.update,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Children(group_id, query_params, token) {
@@ -221,8 +243,13 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.children,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Parents(group_id, query_params, token) {
@@ -261,8 +288,13 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.parents,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Assign(group_id, member_id, member_type, token) {
@@ -305,8 +337,13 @@ class Groups {
                 return "Policy created";
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.assign,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Unassign(member_id, group_id, token) {
@@ -342,8 +379,13 @@ class Groups {
                 return "Policy deleted";
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.unassign,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Disable(group_id, token) {
@@ -376,8 +418,13 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.disable,
+                        error.response.status
+                    );
+                };
+            });
     }
 
     Members(group_id, query_params, token) {
@@ -415,8 +462,13 @@ class Groups {
                 return response.data;
             })
             .catch((error) => {
-                return error.response.data;
-            })
+                if (error.response){
+                    return this.groupError.HandleError(
+                        this.groupError.groups.members,
+                        error.response.status
+                    );
+                };
+            });
     }
 }
 

@@ -25,7 +25,7 @@ try {
             console.log(response);
         })
         .catch(error => {
-            console.error(error.response.data);
+            console.error(error.response);
         });
 } catch (error) {
     console.error(error.message);
@@ -40,7 +40,7 @@ try {
             console.log(response);
         })
         .catch(error => {
-            console.error(error.response.data);
+            console.error(error.response);
         });
 } catch (error) {
     console.error(error.message);
@@ -232,9 +232,9 @@ catch (error) {
 }
 
 try {
-    mySdk.things.IdentifyThing({
-        "secret": "<thing_secret>"
-    })
+    mySdk.things.IdentifyThing(
+        "<thing_secret>"
+    )
         .then(response => {
             console.log(response);
         })
@@ -484,8 +484,8 @@ try {
 
 try {
     mySdk.groups.Create(
-        { "name": "hatshepsut" },
-        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTczODcxNjgsImlhdCI6MTY5NzM4NjI2OCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6IjViNDA3MTgzLTEwNGYtNDc2NC04MDYyLTg3ZGQ2MTM5MTA0NiIsInR5cGUiOiJhY2Nlc3MifQ.kPctWq5eR1UdK1bEERlY42O2oqW1TNdA-N4IYQ24lLxdZ6HOGU7vR9FgtXdH0S2XXcSJR3flq8lmsPOB_s9zAA"
+        { "name": "<group_name>" },
+        "<token>"
     )
         .then(response => {
             console.log(response);
@@ -530,6 +530,7 @@ try {
 try {
     mySdk.groups.Update(
         "<group_id>",
+        {"name": "<group_name>"},
         "<token>"
     )
         .then(response => {
@@ -723,7 +724,7 @@ catch (error) {
 
 try {
     mySdk.channels.Disable(
-        { "id": "<channel_id>" },
+        "<channel_id>",
         "<token>"
     )
         .then(response => {
@@ -848,6 +849,7 @@ try {
             "name": "<name>"
 
         },
+        "<thing_id>",
         "<token>"
     )
         .then(response => {
@@ -863,10 +865,10 @@ try {
 try {
     mySdk.bootstrap.Update(
         {
-            "thing_id": "<thing_id>",
-            "name": "<name>"
+            "name": "<config_name>"
         },
-        "<token>"
+        "<thing_id>",
+        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MTY5MDQsImlhdCI6MTY5NzU2MjkwNCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6IjI0N2Y1YzE5LTA3ZDAtNGE0Ny1iMmU4LTE1ZDkwMGM0Zjk4ZiIsInR5cGUiOiJhY2Nlc3MifQ.V3aq4tMVOai02sX3Wys8wZHaI90_eGJg7enRxZI2notDPdyxKwzD8bIInX2VGi1i8xR6qKRSSwxQUhYyO7UWnw"
     )
         .then(response => {
             console.log(response);
@@ -944,32 +946,32 @@ try {
 //Messages.js
 
 try {
-mySdk.messages.Send(
-    "<channel_id>",
-    '<msg>',
-    "<thing_key>"
-)
-    .then(response => {
-        console.log(response);
-    })
-    .catch(error => {
-        console.error(error.response.data);
-    });
+    mySdk.messages.Send(
+        "<channel_id>",
+        ['<msg>'],
+        "<thing_key>"
+    )
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.error(error.response.data);
+        });
 } catch (error) {
     console.error(error.message);
 }
 
 try {
-mySdk.messages.Read(
-    "<channel_id>",
-    "<token>"
-)
-    .then(response => {
-        console.log(response);
-    })
-    .catch(error => {
-        console.error(error.response.data);
-    });
+    mySdk.messages.Read(
+        "<channel_id>",
+        "<token>"
+    )
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.error(error.response.data);
+        });
 } catch (error) {
     console.error(error.message);
 }
