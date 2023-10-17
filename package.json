@@ -1,0 +1,52 @@
+{
+  "name": "mainflux-sdk",
+  "version": "0.14.33",
+  "description": "Official Mainflux Javascript sdk",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "index.js",
+    "mainflux",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "jest",
+    "replace-axios-import": "find mainflux -type f -name \"*.js\" -exec sed -i 's/const axios = require(\"axios\");/import axios from \"axios\";/g' {} +",
+    "restore-axios-import": "find mainflux -type f -name \"*.js\" -exec sed -i 's/import axios from \"axios\";/const axios = require(\"axios\");/g' {} +",
+    "bundle": "npm run replace-axios-import && browserify -r ./mainflux/sdk.js:mfsdk -o bundle.js -p esmify && npm run restore-axios-import",
+    "format": "prettier . --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mainflux/sdk-js.git"
+  },
+  "keywords": [
+    "Mainflux",
+    "mainflux",
+    "Main-Flux"
+  ],
+  "author": "Nataly Musilah",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mainflux/sdk-js/issues"
+  },
+  "homepage": "https://github.com/mainflux/sdk-js#readme",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "browser-resolve": "^2.0.0",
+    "mainflux-sdk": "^0.14.26",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "esmify": "^2.1.1",
+    "jest": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jsdoc": "^4.0.2",
+    "prettier": "3.0.3",
+    "rollup": "^4.0.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  }
+}

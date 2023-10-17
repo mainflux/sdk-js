@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>List Things Console</title>
+  </head>
+  <body>
+    <h1>List things Console</h1>
+
+    <script src="../../bundle.js"></script>
+
+    <script>
+      const defaultUrl = "http://localhost";
+      const sdk = require("mfsdk");
+      const mysdk = new sdk({
+        usersUrl: defaultUrl + ":9002",
+        groupsUrl: defaultUrl + ":9002",
+        thingsUrl: defaultUrl,
+        channelsUrl: defaultUrl + ":9000",
+        httpadapterUrl: defaultUrl,
+        readersUrl: defaultUrl + ":9011",
+        certsUrl: defaultUrl + ":9019",
+        bootstrapsUrl: defaultUrl + ":9013",
+      });
+
+      mysdk.things
+        .GetAll({ offset: 0, limit: 10 }, "<token>")
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error.response.data);
+        });
+    </script>
+  </body>
+</html>

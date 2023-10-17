@@ -18,6 +18,9 @@ Thank you for your interest in Mainflux and the desire to contribute!
 2. Checkout the [contribution guide](CONTRIBUTING.md) to learn more about our style and conventions.
 3. Make your changes compatible to our workflow.
 
+## Getting Started
+The node module can be used from `index.js` and examples are located in `examples` directory. To use on the browser use `bundle.js` and examples are in `example/client`. 
+
 ## Community
 
 - [Google group](https://groups.google.com/forum/#!forum/mainflux)

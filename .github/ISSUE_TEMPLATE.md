@@ -30,7 +30,9 @@ the following locations:
 6. Additional information you deem important:
 
 **ENHANCEMENT**
+
 1. Describe the enhancement you are requesting. Enhancements include:
+
    - tests
    - code refactor
    - documentation

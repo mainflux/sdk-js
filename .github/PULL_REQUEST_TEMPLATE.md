@@ -4,6 +4,7 @@ Please review the [CONTRIBUTING.md](./CONTRIBUTING.md) file for detailed contrib
 ### What does this do?
 
 ### Which issue(s) does this PR fix/relate to?
+
 Put here `Resolves #XXX` to auto-close the issue that your PR fixes (if such)
 
 ### List any changes that modify/break current functionality
