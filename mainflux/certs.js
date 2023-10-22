@@ -53,7 +53,7 @@ class Certs {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
             },
-            data: JSON.stringify(payload),
+            data: payload,
         };
         return axios.request(options)
             .then((response) => {

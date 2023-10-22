@@ -40,6 +40,32 @@ describe('Messages', () => {
         });
     });
 
+    test('Send should handle a conflict error', () => {
+        const errorResponse = {
+            response: {
+              status: 400,
+            },
+          };
+          axios.request.mockRejectedValueOnce(errorResponse);
+
+        const expectedUrl = `${httpadapter_url}/http/channels/${chan_id}/messages/${subtopic}`;
+
+        const sdk = new mfsdk({ httpadapterUrl: httpadapter_url });
+        return sdk.messages.Send(channel_id, msg, thing_key).then(result => {
+            expect(axios.request).toHaveBeenCalledWith({
+                url: expectedUrl,
+                method: 'post',
+                maxBodyLength: 2000,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Thing ${thing_key}`,
+                },
+                data: new TextEncoder().encode(msg),
+            });
+            expect(result).toBe('Message discarded due to its malformed content.');
+        });
+    });
+
     test('Read should read a message and return success', () => {
         axios.request.mockResolvedValueOnce({ data: msg });
 
@@ -58,6 +84,32 @@ describe('Messages', () => {
                 params: {"subtopic": subtopic},
             });
             expect(result).toEqual(msg);
+        });
+    });
+
+    test('Read should handle a conflict error', () => {
+        const errorResponse = {
+            response: {
+              status: 401,
+            },
+          };
+          axios.request.mockRejectedValueOnce(errorResponse);
+
+        const expectedUrl = `${readers_url}/channels/${chan_id}/messages`;
+
+        const sdk = new mfsdk({ readersUrl: readers_url });
+        return sdk.messages.Read(channel_id, token).then(result => {
+            expect(axios.request).toHaveBeenCalledWith({
+                url: expectedUrl,
+                method: 'get',
+                maxBodyLength: 2000,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                params: {"subtopic": subtopic},
+            });
+            expect(result).toBe("Missing or invalid access token provided.");
         });
     });
 

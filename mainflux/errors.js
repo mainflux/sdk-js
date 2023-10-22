@@ -36,13 +36,13 @@ class Errors {
             404: "A non-existent entity request.",
         },
         update: {
-            404: "Failed due to a non-existing user.",
             401: "Missing or invalid access token provided.",
+            404: "Failed due to a non-existing user.",
             400: "Failed due to malformed JSON.",
         },
         updateusertags:{
             401: "Missing or invalid access token provided.",
-            400: "Failed due to malformed JSON.",
+            404: "A non-existent entity request.",
         },
         updateuserpassword:{
             500: "Unexpected server-side error occurred.",
@@ -70,6 +70,7 @@ class Errors {
             401: "Missing or invalid access token provided.",
         },
         memberships:{
+            500: "Unexpected serverside error occurred.",
             401: "Missing or invalid access token provided.",
             400: "Failed due to malformed query parameters.",
         },

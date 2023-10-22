@@ -61,7 +61,7 @@ class Groups {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
             },
-            data: JSON.stringify(group),
+            data: group,
         };
         return axios.request(options)
             .then((response) => {
@@ -78,7 +78,7 @@ class Groups {
     }
 
     Get(group_id, token) {
-        //Get a group.
+        //Get information about a group.
         /**
          * @method Get - Provide a group's information once given the group ID and a valid token.
          * @param {string} group_id - The group's ID.
@@ -192,7 +192,7 @@ class Groups {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
             },
-            data: JSON.stringify(group),
+            data: group,
         };
         return axios.request(options)
             .then((response) => {
@@ -330,7 +330,7 @@ class Groups {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
             },
-            data: JSON.stringify(payload),
+            data: payload,
         };
         return axios.request(options)
             .then((_response) => {
@@ -372,7 +372,7 @@ class Groups {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
             },
-            data: JSON.stringify(payload),
+            data: payload,
         };
         return axios.request(options)
             .then((_response) => {

@@ -27,7 +27,7 @@ describe('Things', () => {
     const channel_ids = ["2bb290ff-0cb1-4f06-9da3-aff91c1d039","6cba4ea5-5820-4419-b389-86984309ad35"];
     const actions = ["m_read", "m_write"];
     const thing_key= "12345678";
-    const action = ["m_read", "m_write"];
+    const action = "m_read";
     const channels = [{"name": "channel1", "id": "bb7edb32-2eac-4aad-aebe-ed96fe073879"}, 
             {"name": "channel2", "id": "bb7edb32-2eac-4aad-aebe-ed96fe073879"}
         ];
@@ -35,7 +35,7 @@ describe('Things', () => {
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjU3OTMwNjksImlhdCI6";
     const things = [
         {"name": "thing1", "id": "bb7edb32-2eac-4aad-aebe-ed96fe073879"},
-        {"name": "thing2", "id": "bb7edb32-2eac-4aad-aebe-ed96fe073879"}
+        {"name": "thing2", "id": "bb7edb32-2eac-4aad-aebe-ed96fe073879"},
     ];
     const query_params = {
         "offset": 0, "limit": 10 
@@ -50,7 +50,7 @@ describe('Things', () => {
         const sdk = new mfsdk({thingsUrl: things_url});
         return sdk.things.Create(thing, token).then(result => {
 
-            expect(result).toEqual(thing);
+            
             expect(axios.request).toHaveBeenCalledWith({
                 method: "post",
                 maxBodyLength: 2000,
@@ -59,15 +59,16 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
+            expect(result).toEqual(thing);
         });
     });
 
     test('Create should handle a conflict error', ()=>{
         const errorResponse = {
             response: {
-                status: 401,
+                status: 500,
             },
         };
         axios.request.mockRejectedValue(errorResponse);
@@ -84,11 +85,11 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
-            console.log(result);
+            expect(result.error.status).toBe(1);
+            expect(result.error.message).toBe('Unexpected server-side error occurred.');
         });
-
     });
 
     test('CreateBulk should create multiple things and return success', ()=>{
@@ -106,9 +107,35 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(things),
+                data: things,
             });
             expect(result).toEqual(things);
+        });
+    });
+
+    test('CreateBulk should handle a conflict error', ()=>{
+        const errorResponse = {
+            response: {
+                status: 500,
+            },
+        };
+        axios.request.mockRejectedValue(errorResponse);
+
+        const expectedUrl = `${things_url}/things/bulk`;
+
+        const sdk = new mfsdk({thingsUrl: things_url}); 
+        return sdk.things.CreateBulk(things, token).then(result => {
+            expect(axios.request).toHaveBeenCalledWith({
+                method: "post",
+                maxBodyLength: 2000,
+                url: expectedUrl,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                data: things,
+            });
+            expect(result).toEqual("Unexpected server-side error occurred.");
         });
     });
 
@@ -127,9 +154,35 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
             expect(result).toEqual(thing);
+        });
+    });
+
+    test('Update should handle a conflict error', ()=>{
+        const errorResponse = {
+            response: {
+                status: 500,
+            },
+        };
+        axios.request.mockRejectedValue(errorResponse);
+
+        const expectedUrl = `${things_url}/things/${thing_id}`;
+
+        const sdk = new mfsdk({thingsUrl: things_url});
+        return sdk.things.Update(thing_id, thing, token).then(result => {
+            expect(axios.request).toHaveBeenCalledWith({
+                method: "patch",
+                maxBodyLength: 2000,
+                url: expectedUrl,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                data: thing,
+            });
+            expect(result).toEqual("Unexpected server-side error occurred.");
         });
     });
 
@@ -153,6 +206,31 @@ describe('Things', () => {
         });
     });
 
+    test('Get should handle a conflict error', ()=>{
+        const errorResponse = {
+            response: {
+                status: 401,
+            },
+        };
+        axios.request.mockRejectedValue(errorResponse);
+
+        const expectedUrl = `${things_url}/things/${thing_id}`;
+
+        const sdk = new mfsdk({thingsUrl: things_url});
+        return sdk.things.Get(thing_id, token).then(result => {
+            expect(axios.request).toHaveBeenCalledWith({
+                method: "get",
+                maxBodyLength: 2000,
+                url: expectedUrl,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            expect(result).toEqual("Missing or invalid access token provided.");
+        });
+    });
+
     test('Get by channel return a channel a thing is connected and return success', ()=>{
         axios.request.mockResolvedValue({ data: channels});
 
@@ -170,6 +248,31 @@ describe('Things', () => {
                 },
             });
             expect(result).toEqual(channels);
+        });
+    });
+
+    test('Get by channel should handle aconflict error', ()=>{
+        const errorResponse = {
+            response: {
+                status: 401,
+            },
+        };
+        axios.request.mockRejectedValue(errorResponse);
+
+        const expectedUrl = `${things_url}/things/${thing_id}/channels?${new URLSearchParams(query_params).toString()}`;
+
+        const sdk = new mfsdk({thingsUrl: things_url});
+        return sdk.things.GetByChannel(thing_id, query_params, token).then(result => {
+            expect(axios.request).toHaveBeenCalledWith({
+                method: "get",
+                maxBodyLength: 2000,
+                url: expectedUrl,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -233,9 +336,9 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -254,7 +357,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
             expect(result).toEqual(thing);
         });
@@ -275,7 +378,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
             expect(result).toEqual(thing);
         });
@@ -296,7 +399,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
             expect(result).toEqual(thing);
         });
@@ -322,7 +425,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(thing),
+                data: thing,
             });
             console.log(result);
         });
@@ -344,7 +447,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(payload),
+                data: payload,
             });
             expect(result).toEqual("Policy created.");
         });
@@ -366,7 +469,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(payload),
+                data: payload,
             });
             expect(result).toEqual("Policy created.");
         });
@@ -388,7 +491,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(payload),
+                data: payload,
             });
             expect(result).toEqual("Policy deleted.");
         });
@@ -435,7 +538,7 @@ describe('Things', () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(access_request),
+                data: access_request,
             });
             expect(result).toEqual(true);
         });

@@ -44,7 +44,7 @@ describe('Channels', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(channel),
+                data: channel,
             });
             expect(result).toEqual(channel);
         });
@@ -70,9 +70,9 @@ describe('Channels', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(channel),
+                data: channel,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -116,7 +116,7 @@ describe('Channels', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -143,7 +143,7 @@ describe('Channels', () => {
     test('Get by thing should handle a conflict error', () => {
         const errorResponse = {
             response: {
-                status: 401,
+                status: 500,
             },
         };
         axios.request.mockRejectedValueOnce(errorResponse);
@@ -161,7 +161,7 @@ describe('Channels', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Unexpected server-side error occurred.");
         });
     });
 
@@ -206,7 +206,7 @@ describe('Channels', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-      console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -225,7 +225,7 @@ describe('Channels', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(channels),
+                data: channels,
             });
             expect(result).toEqual(channels);
         });
@@ -250,9 +250,9 @@ describe('Channels', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(channels),
+                data: channels,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -276,9 +276,9 @@ describe('Channels', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(channel),
+                data: channel,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -297,7 +297,7 @@ describe('Channels', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(channel),
+                data: channel,
             });
             expect(result).toEqual(channel);
         });
@@ -344,7 +344,7 @@ describe('Channels', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 

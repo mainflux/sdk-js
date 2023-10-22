@@ -15,7 +15,7 @@ const mySdk = new SDK({
 });
 
 //Things.js examples.
-
+/*
 try {
     mySdk.things.Create(
         { "name": "<thing_name>" },
@@ -165,8 +165,8 @@ try {
     mySdk.things.Connect(
         "<thing_id>",
         "<channel_id>",
-        ["action"],
-        "token"
+        ["<actions>"],
+        "<token>"
     )
         .then(response => {
             console.log(response);
@@ -181,8 +181,8 @@ catch (error) {
 
 try {
     mySdk.things.Disconnect(
-        ["<thing_id>"],
-        ["<channel_id>"],
+        ["<thing_ids>"],
+        ["<channel_ids>"],
         "<token>"
     )
         .then(response => {
@@ -313,7 +313,7 @@ try {
 
 try {
     mySdk.users.RefreshToken(
-        "<user_id>",
+        {"id":"user_id"},
         "<token>"
     )
         .then(response => {
@@ -328,8 +328,9 @@ try {
 
 try {
     mySdk.users.Update(
-        { "id": "<user_id>", "name": "<user_name>" },
-        "<token>"
+        { "id": "88ea3a5a-4362-4a4f-891b-bc4da3b5392b", "name": "rhaenys" },
+        "88ea3a5a-4362-4a4f-891b-bc4da3b5392b",
+        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc3NjEyMDgsImlhdCI6MTY5NzcwNzIwOCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6ImY3YzdkZDRkLTlmNzgtNDQxZi1hZGE4LWE5MDJkOTNhNmE2OCIsInR5cGUiOiJhY2Nlc3MifQ.gpYG__0_jqwDpcSQI-1KTC5GdxNjjj7Y4EdBUKJNeFnTzbD1jZPXY4QCdt2wYRmrZRlvCrGIsj02IjNt654kqQ"
     )
         .then(response => {
             console.log(response);
@@ -343,8 +344,9 @@ try {
 
 try {
     mySdk.users.UpdateUserIdentity(
-        { "id": "<user_id>", "identity": "<user_identity>" },
-        "<token>"
+        {"identity": "rhaenys@email.com"},
+        "88ea3a5a-4362-4a4f-891b-bc4da3b5392b",
+        ".eyJleHAiOjE2OTc3NjEyMDgsImlhdCI6MTY5NzcwNzIwOCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6ImY3YzdkZDRkLTlmNzgtNDQxZi1hZGE4LWE5MDJkOTNhNmE2OCIsInR5cGUiOiJhY2Nlc3MifQ.gpYG__0_jqwDpcSQI-1KTC5GdxNjjj7Y4EdBUKJNeFnTzbD1jZPXY4QCdt2wYRmrZRlvCrGIsj02IjNt654kqQ"
     )
         .then(response => {
             console.log(response);
@@ -358,7 +360,8 @@ try {
 
 try {
     mySdk.users.UpdateUserTags(
-        { "id": "<user_id>", "tags": ["foo", "bar"] },
+        {"tags": ["foo", "bar"] },
+        "<user_id>",
         "<token>"
     )
         .then(response => {
@@ -373,7 +376,8 @@ try {
 
 try {
     mySdk.users.UpdateUserOwner(
-        { "id": "<user_id>", "owner": "<owner_identity>" },
+        { "owner": "<owner_id>" },
+        "<user_id>",
         "<token>"
     )
         .then(response => {
@@ -389,6 +393,7 @@ try {
 try {
     mySdk.users.Disable(
         { "id": "<user_id>" },
+        "user_id",
         "<token>"
     )
         .then(response => {
@@ -404,6 +409,7 @@ try {
 try {
     mySdk.users.Enable(
         { "id": "<user_id>" },
+        "<user_id>",
         "<token>"
     )
         .then(response => {
@@ -445,12 +451,12 @@ try {
 } catch (error) {
     console.error(error.message);
 }
-
+*/
 try {
     mySdk.users.Memberships(
-        "<member_id>",
-        { query_params },
-        "<token>"
+        "88ea3a5a-4362-4a4f-891b-bc4da3b5392b",
+        { "offset": 0, "limit": 10 },
+        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc3NjEyMDgsImlhdCI6MTY5NzcwNzIwOCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6ImY3YzdkZDRkLTlmNzgtNDQxZi1hZGE4LWE5MDJkOTNhNmE2OCIsInR5cGUiOiJhY2Nlc3MifQ.gpYG__0_jqwDpcSQI-1KTC5GdxNjjj7Y4EdBUKJNeFnTzbD1jZPXY4QCdt2wYRmrZRlvCrGIsj02IjNt654kqQ"
     )
         .then(response => {
             console.log(response);
@@ -461,7 +467,7 @@ try {
 } catch (error) {
     console.error(error.message);
 }
-
+/*
 try {
     mySdk.users.AuthoriseUser(
         "<user_id>",
@@ -754,9 +760,9 @@ try {
 catch (error) {
     console.error(error.message);
 }
-
+*/
 //Certs.js
-
+/*
 try {
     mySdk.certs.Issue(
         "<thing_id>",
@@ -975,3 +981,4 @@ try {
 } catch (error) {
     console.error(error.message);
 }
+*/

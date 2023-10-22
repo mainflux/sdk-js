@@ -41,7 +41,7 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(group),
+                data: group,
             });
             expect(result).toEqual(group);
         });
@@ -67,9 +67,9 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(group),
+                data: group,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -114,7 +114,7 @@ describe('Groups', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -160,7 +160,7 @@ describe('Groups', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -179,7 +179,7 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(group),
+                data: group,
             });
             expect(result).toEqual(group);
         });
@@ -205,9 +205,9 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(group),
+                data: group,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -252,7 +252,7 @@ describe('Groups', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -297,7 +297,7 @@ describe('Groups', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -317,7 +317,7 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(payload),
+                data: payload,
             });
             expect(result).toEqual("Policy created");
         });
@@ -344,9 +344,9 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(payload),
+                data: payload,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -366,7 +366,7 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(payload),
+                data: payload,
             });
             expect(result).toEqual("Policy deleted");
         });
@@ -393,9 +393,9 @@ describe('Groups', () => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                data: JSON.stringify(payload),
+                data: payload,
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -440,7 +440,7 @@ describe('Groups', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 
@@ -485,9 +485,7 @@ describe('Groups', () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(result);
-            // expect(result.error.status).toBe(1);
-            // expect(result.error.message).toBe('Missing or invalid access token provided.');
+            expect(result).toEqual("Missing or invalid access token provided.");
         });
     });
 });
