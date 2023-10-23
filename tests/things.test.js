@@ -435,10 +435,10 @@ describe('Things', () => {
         axios.request.mockResolvedValue("Policy created.");
 
         const expectedUrl = `${things_url}/policies`;
-        const payload = { "subject": thing_id, "object": channel_id, "action": action };
+        const payload = { "subject": thing_id, "object": channel_id, "actions": actions };
 
         const sdk = new mfsdk({thingsUrl: things_url});
-        return sdk.things.Connect(thing_id, channel_id, action, token).then(result => {
+        return sdk.things.Connect(thing_id, channel_id, actions, token).then(result => {
             expect(axios.request).toHaveBeenCalledWith({
                 method: "post",
                 maxBodyLength: 2000,
@@ -479,10 +479,10 @@ describe('Things', () => {
         axios.request.mockResolvedValue("Policy deleted.");
 
         const expectedUrl = `${things_url}/disconnect`;
-        const payload = {  "subjects": thing_id, "objects": channel_id };
+        const payload = {  "subjects": thing_ids, "objects": channel_ids };
 
         const sdk = new mfsdk({thingsUrl: things_url});
-        return sdk.things.Disconnect(thing_id, channel_id, token).then(result => {
+        return sdk.things.Disconnect(thing_ids, channel_ids, token).then(result => {
             expect(axios.request).toHaveBeenCalledWith({
                 method: "post",
                 maxBodyLength: 2000,

@@ -1,6 +1,6 @@
 {
   "name": "mainflux-sdk",
-  "version": "0.14.36",
+  "version": "0.14.37",
   "description": "Official Mainflux Javascript sdk",
   "main": "index.js",
   "engines": {
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/mainflux/sdk-js#readme",
   "dependencies": {
     "axios": "^1.5.0",
-    "mainflux-sdk": "^0.14.36",
+    "mainflux-sdk": "^0.14.37",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {

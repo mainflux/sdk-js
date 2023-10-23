@@ -496,7 +496,7 @@ class Things {
      * the channel.
      * @param {string} thing_id - Thing ID.
      * @param {string} channel_id - Channel ID.
-     * @param {list} action - Action for example: ["m_read", "m_write"].
+     * @param {list} actions - Action for example: ["m_read", "m_write"].
      * @param {string} token - User token.
      * 
      */
@@ -510,7 +510,7 @@ class Things {
 
     this.ValidateThingIdThingAndToken(thing_id, {}, token);
 
-    const payload = { "subject": thing_id, "object": channel_id, "action": action }
+    const payload = { "subject": thing_id, "object": channel_id, "actions": actions }
     const options = {
       method: "post",
       maxBodyLength: 2000,

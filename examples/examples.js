@@ -15,7 +15,7 @@ const mySdk = new SDK({
 });
 
 //Things.js examples.
-/*
+
 try {
     mySdk.things.Create(
         { "name": "<thing_name>" },
@@ -130,7 +130,7 @@ catch (error) {
 try {
     mySdk.things.UpdateThingTags(
         "<thing_id>",
-        { "tags": ["stheno", "euryale"] },
+        { "tags": ["<foo>", "<bar>"] },
         "<token>"
     )
         .then(response => {
@@ -328,9 +328,9 @@ try {
 
 try {
     mySdk.users.Update(
-        { "id": "88ea3a5a-4362-4a4f-891b-bc4da3b5392b", "name": "rhaenys" },
-        "88ea3a5a-4362-4a4f-891b-bc4da3b5392b",
-        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc3NjEyMDgsImlhdCI6MTY5NzcwNzIwOCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6ImY3YzdkZDRkLTlmNzgtNDQxZi1hZGE4LWE5MDJkOTNhNmE2OCIsInR5cGUiOiJhY2Nlc3MifQ.gpYG__0_jqwDpcSQI-1KTC5GdxNjjj7Y4EdBUKJNeFnTzbD1jZPXY4QCdt2wYRmrZRlvCrGIsj02IjNt654kqQ"
+        { "id": "<user_id>", "name": "<user_name>" },
+        "<user_id>",
+        "<token>"
     )
         .then(response => {
             console.log(response);
@@ -344,9 +344,9 @@ try {
 
 try {
     mySdk.users.UpdateUserIdentity(
-        {"identity": "rhaenys@email.com"},
-        "88ea3a5a-4362-4a4f-891b-bc4da3b5392b",
-        ".eyJleHAiOjE2OTc3NjEyMDgsImlhdCI6MTY5NzcwNzIwOCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6ImY3YzdkZDRkLTlmNzgtNDQxZi1hZGE4LWE5MDJkOTNhNmE2OCIsInR5cGUiOiJhY2Nlc3MifQ.gpYG__0_jqwDpcSQI-1KTC5GdxNjjj7Y4EdBUKJNeFnTzbD1jZPXY4QCdt2wYRmrZRlvCrGIsj02IjNt654kqQ"
+        {"identity": "<user_identity>"},
+        "<user_id>",
+        "<token>"
     )
         .then(response => {
             console.log(response);
@@ -451,12 +451,12 @@ try {
 } catch (error) {
     console.error(error.message);
 }
-*/
+
 try {
     mySdk.users.Memberships(
-        "88ea3a5a-4362-4a4f-891b-bc4da3b5392b",
+        "<member_id>",
         { "offset": 0, "limit": 10 },
-        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc3NjEyMDgsImlhdCI6MTY5NzcwNzIwOCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6ImY3YzdkZDRkLTlmNzgtNDQxZi1hZGE4LWE5MDJkOTNhNmE2OCIsInR5cGUiOiJhY2Nlc3MifQ.gpYG__0_jqwDpcSQI-1KTC5GdxNjjj7Y4EdBUKJNeFnTzbD1jZPXY4QCdt2wYRmrZRlvCrGIsj02IjNt654kqQ"
+        "<token>"
     )
         .then(response => {
             console.log(response);
@@ -467,7 +467,7 @@ try {
 } catch (error) {
     console.error(error.message);
 }
-/*
+
 try {
     mySdk.users.AuthoriseUser(
         "<user_id>",
@@ -585,7 +585,7 @@ try {
     mySdk.groups.Assign(
         "<group_id>",
         "<member_id>",
-        ["<action>"],
+        ["<member_type>"],
         "<token>"
     )
         .then(response => {
@@ -760,9 +760,9 @@ try {
 catch (error) {
     console.error(error.message);
 }
-*/
+
 //Certs.js
-/*
+
 try {
     mySdk.certs.Issue(
         "<thing_id>",
@@ -874,7 +874,7 @@ try {
             "name": "<config_name>"
         },
         "<thing_id>",
-        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MTY5MDQsImlhdCI6MTY5NzU2MjkwNCwiaWRlbnRpdHkiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlzcyI6ImNsaWVudHMuYXV0aCIsInN1YiI6IjI0N2Y1YzE5LTA3ZDAtNGE0Ny1iMmU4LTE1ZDkwMGM0Zjk4ZiIsInR5cGUiOiJhY2Nlc3MifQ.V3aq4tMVOai02sX3Wys8wZHaI90_eGJg7enRxZI2notDPdyxKwzD8bIInX2VGi1i8xR6qKRSSwxQUhYyO7UWnw"
+        "<token>"
     )
         .then(response => {
             console.log(response);
@@ -981,4 +981,3 @@ try {
 } catch (error) {
     console.error(error.message);
 }
-*/

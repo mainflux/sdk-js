@@ -22,7 +22,7 @@ describe('Groups', () => {
         { "name": "groupB", "id": "bb7edb32-2eac-4aad-aebe-ed96fe073879" }
     ];
     const member_id = "bb7edb32-2eac-4aad-aebe-ed96fe073879";
-    const member_type = "m_read";
+    const member_type = ["m_read", "m_write"];
     const members_ids = ["bb7edb32-2eac-4aad-aebe-ed96fe073879", "bb7edb32-2eac-4aad-aebe-ed96fe073879"];
 
 
