@@ -13,7 +13,7 @@ class Users {
      * @returns {Object} - Users object.
      */
     constructor(users_url) {
-        this.users_url = users_url;
+        this.users_url = new URL (users_url);
         this.content_type = "application/json";
         this.usersEndpoint = "users";
     }
@@ -45,7 +45,6 @@ class Users {
          *   "password": "12345678"
          * }
          * }
-         * 
          */
 
         this.ValidateUserAndToken(user, token);
@@ -53,7 +52,7 @@ class Users {
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}`,
+            url: new URL (this.usersEndpoint, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -94,7 +93,7 @@ class Users {
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}/tokens/issue`,
+            url: new URL (`${this.usersEndpoint}/tokens/issue`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
             },
@@ -138,7 +137,7 @@ class Users {
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}/tokens/refresh`,
+            url: new URL (`${this.usersEndpoint}/tokens/refresh`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${refresh_token}`,
@@ -182,7 +181,7 @@ class Users {
 
         const options = {
             method: "patch",
-            url: `${this.users_url}/${this.usersEndpoint}/${user_id}`,
+            url: new URL (`${this.usersEndpoint}/${user_id}`, this.users_url),
             maxBodyLength: 2000,
             headers: {
                 "Content-Type": this.content_type,
@@ -230,7 +229,7 @@ class Users {
 
         const options = {
             method: "patch",
-            url: `${this.users_url}/${this.usersEndpoint}/${user_id}/identity`,
+            url: new URL (`${this.usersEndpoint}/${user_id}/identity`, this.users_url),
             maxBodyLength: 2000,
             headers: {
                 "Content-Type": this.content_type,
@@ -284,7 +283,7 @@ class Users {
 
         const options = {
             method: "patch",
-            url: `${this.users_url}/${this.usersEndpoint}/${user_id}/tags`,
+            url: new URL(`${this.usersEndpoint}/${user_id}/tags`, this.users_url),
             maxBodyLength: 2000,
             headers: {
                 "Content-Type": this.content_type,
@@ -340,7 +339,7 @@ class Users {
 
         const options = {
             method: "patch",
-            url: `${this.users_url}/${this.usersEndpoint}/${user_id}/owner`,
+            url: new URL(`${this.usersEndpoint}/${user_id}/owner`, this.users_url),
             maxBodyLength: 2000,
             headers: {
                 "Content-Type": this.content_type,
@@ -382,7 +381,7 @@ class Users {
         const secret = { old_secret: old_secret, new_secret: new_secret }
         const options = {
             method: "patch",
-            url: `${this.users_url}/${this.usersEndpoint}/secret`,
+            url: new URL (`${this.usersEndpoint}/secret`, this.users_url),
             maxBodyLength: 2000,
             headers: {
                 "Content-Type": this.content_type,
@@ -427,7 +426,7 @@ class Users {
         const options = {
             method: "get",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}/${user_id}`,
+            url: new URL (`${this.usersEndpoint}/${user_id}`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -474,7 +473,7 @@ class Users {
         const options = {
             method: "get",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}?${new URLSearchParams(query_params).toString()}`,
+            url: new URL (`${this.usersEndpoint}?${new URLSearchParams(query_params).toString()}`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -518,7 +517,7 @@ class Users {
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}/${user_id}/disable`,
+            url: new URL (`${this.usersEndpoint}/${user_id}/disable`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -560,7 +559,7 @@ class Users {
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}/${user_id}/enable`,
+            url: new URL (`${this.usersEndpoint}/${user_id}/enable`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -605,7 +604,7 @@ class Users {
         const options = {
             method: "get",
             maxBodyLength: 2000,
-            url: `${this.users_url}/${this.usersEndpoint}/${member_id}/memberships?${new URLSearchParams(query_params).toString()}`,
+            url: new URL (`${this.usersEndpoint}/${member_id}/memberships?${new URLSearchParams(query_params).toString()}`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -656,7 +655,7 @@ class Users {
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.users_url}/authorize`,
+            url: new URL(`authorize`, this.users_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,

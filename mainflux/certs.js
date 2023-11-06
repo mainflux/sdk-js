@@ -10,7 +10,7 @@ class Certs {
      * @returns {Certs} - Returns a Certs object. 
      */
     constructor(certs_url) {
-        this.certs_url = certs_url;
+        this.certs_url = new URL(certs_url);
         this.content_type = "application/json";
         this.certsEndpoint = "certs";
     }
@@ -48,7 +48,7 @@ class Certs {
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.certs_url}/${this.certsEndpoint}`,
+            url: new URL (this.certsEndpoint, this.certs_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ class Certs {
         const options = {
             method: "get",
             maxBodyLength: 2000,
-            url: `${this.certs_url}/serials/${thing_id}`,
+            url: new URL (`serials/${thing_id}`, this.certs_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -124,7 +124,7 @@ class Certs {
         const options = {
             method: "get",
             maxBodyLength: 2000,
-            url: `${this.certs_url}/${this.certsEndpoint}/${cert_id}`,
+            url: new URL (`${this.certsEndpoint}/${cert_id}`, this.certs_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
@@ -158,7 +158,7 @@ class Certs {
         const options = {
             method: "delete",
             maxBodyLength: 2000,
-            url: `${this.certs_url}/${this.certsEndpoint}/${thing_id}`,
+            url: new URL (`${this.certsEndpoint}/${thing_id}`, this.certs_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,

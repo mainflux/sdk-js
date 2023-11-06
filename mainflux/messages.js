@@ -10,8 +10,8 @@ class Messages{
      * @returns {Messages} - Returns a Messages object.
      */
     constructor(readers_url, httpadapter_url){
-        this.readers_url = readers_url;
-        this.httpadapter_url = httpadapter_url;
+        this.readers_url = new URL (readers_url);
+        this.httpadapter_url = new URL (httpadapter_url);
         this.content_type = 'application/json';
     }
 
@@ -54,7 +54,7 @@ class Messages{
         const options = {
             method: "post",
             maxBodyLength: 2000,
-            url: `${this.httpadapter_url}/http/channels/${chan_id}/messages/${subtopic}`,
+            url: new URL (`http/channels/${chan_id}/messages/${subtopic}`, this.httpadapter_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Thing ${thing_key}`,
@@ -104,7 +104,7 @@ class Messages{
         const options = {
             method: "get",
             maxBodyLength: 2000,
-            url: `${this.readers_url}/channels/${chan_id}/messages`,
+            url: new URL (`channels/${chan_id}/messages`, this.readers_url),
             headers: {
                 "Content-Type": this.content_type,
                 Authorization: `Bearer ${token}`,
